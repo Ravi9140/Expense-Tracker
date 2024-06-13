@@ -1,0 +1,35 @@
+name: PR Title Check
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  title-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Get PR Title
+      id: get_pr_title
+      run: echo "::set-output name=title::${{ github.event.pull_request.title }}"
+
+    - name: Validate PR Title
+      id: validate_title
+      run: |
+        PR_TITLE="${{ steps.get_pr_title.outputs.title }}"
+        echo "PR Title: $PR_TITLE"
+        DEFECT_REGEX="^\[[A-Z]+-[0-9]+\] \[P[1-4]\] Fix .+"
+        FEATURE_REGEX="^\[[A-Z]+-[0-9]+\] \[FEAT\] .+"
+        TECH_REGEX="^\[TECH\] .+"
+        HOTFIX_REGEX="^\[HOTFIX\] .+"
+        if [[ ! "$PR_TITLE" =~ $DEFECT_REGEX ]] && [[ ! "$PR_TITLE" =~ $FEATURE_REGEX ]] && [[ ! "$PR_TITLE" =~ $TECH_REGEX ]] && [[ ! "$PR_TITLE" =~ $HOTFIX_REGEX ]]; then
+          echo "Error: PR title does not match the required format."
+          exit 1
+        fi
+
+    - name: Success
+      if: success()
+      run: echo "PR title is valid."
