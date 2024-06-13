@@ -26,7 +26,7 @@ jobs:
         TECH_REGEX="^\[TECH\] .+"
         HOTFIX_REGEX="^\[HOTFIX\] .+"
         if [[ ! "$PR_TITLE" =~ $DEFECT_REGEX ]] && [[ ! "$PR_TITLE" =~ $FEATURE_REGEX ]] && [[ ! "$PR_TITLE" =~ $TECH_REGEX ]] && [[ ! "$PR_TITLE" =~ $HOTFIX_REGEX ]]; then
-          echo "Error: PR title does not match the required format."
+          echo "Error: PR title does not match the required format. Refer this document to get details about the PR title format: https://driveau.atlassian.net/wiki/spaces/DRIVE/pages/562724878/PR+name+template "
           exit 1
         fi
 
