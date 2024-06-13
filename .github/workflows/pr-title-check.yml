@@ -21,7 +21,7 @@ jobs:
       run: |
         PR_TITLE="${{ steps.get_pr_title.outputs.title }}"
         echo "PR Title: $PR_TITLE"
-        DEFECT_REGEX="^\[[A-Z]+-[0-9]+\] \[P[1-4]\] Fix .+"
+        DEFECT_REGEX="^\[[A-Z]+-[0-9]+\] \[P[1-4]\] .+"
         FEATURE_REGEX="^\[[A-Z]+-[0-9]+\] \[FEAT\] .+"
         TECH_REGEX="^\[TECH\] .+"
         HOTFIX_REGEX="^\[HOTFIX\] .+"
