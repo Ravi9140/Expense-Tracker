@@ -36,13 +36,13 @@ store.on("error", (err) => console.log(err));
 app.use(
 	session({
 		secret: process.env.SESSION_SECRET,
-		resave: false, // this option specifies whether to save the session to the store on every request
+		store: store,
+		resave: false, // This option specifies whether to save the session to the store on every request
 		saveUninitialized: false, // option specifies whether to save uninitialized sessions
 		cookie: {
 			maxAge: 1000 * 60 * 60 * 24 * 7,
 			httpOnly: true, // this option prevents the Cross-Site Scripting (XSS) attacks
 		},
-		store: store,
 	})
 );
 
